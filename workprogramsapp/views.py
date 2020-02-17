@@ -3,6 +3,7 @@ from django.shortcuts import redirect
 from django.views import View
 from .models import WorkProgram, OutcomesOfWorkProgram, PrerequisitesOfWorkProgram
 from .forms import WorkProgramOutcomesPrerequisites, PrerequisitesOfWorkProgramForm
+from django.contrib.auth.decorators import login_required
 
 
 from dataprocessing.models import Items
@@ -11,6 +12,7 @@ import itertools
 
 
 class WorkProgramsList(View):
+
 
     def get(self, request):
 
@@ -33,7 +35,6 @@ class WorkProgramsList(View):
             for prerequisite in prerequisites:
                 prerequisites_levels3.append({'item': prerequisite, 'item_level': prerequisites_levels2[prerequisites.index(prerequisite)][0]})
                 workprograms_prerequisites.append({'title': workprogram.title, 'outcomes_levels': outcomes_levels3, })
-            print(workprograms_outcomes)
             workprograms_outcomes.append({'pk': workprogram.pk, 'hoursFirstSemester': workprogram.hoursFirstSemester,
                                           'hoursSecondSemester': workprogram.hoursSecondSemester, 'title': workprogram.title, 'outcomes_levels': outcomes_levels3,
                                           'prerequisites_levels': prerequisites_levels3})
@@ -75,37 +76,37 @@ class WorkProgramsPostUpdate(View):
         return render(request, 'workprograms/WorkProgramOutcomesPrerequisitesEdit.html', {'form': WorkProgramOP})
 
 
-class WorkPrograms(View):
-
-    def get(self, request, pk):
-
-        workprogram = WorkProgram.objects.prefetch_related('outcomes', 'prerequisites').filter(pk=pk)
-        workprogram_outcomes = []
-        workprogram_prerequisites = []
-
-        """данные о резальтатах"""
-        outcomes = [item.name for item in workprogram.outcomes.get(pk=pk)]
-        outcomes_levels = OutcomesOfWorkProgram.objects.values_list('masterylevel').filter(workprogram=workprogram.pk)
-        outcomes_levels2 = [entry for entry in outcomes_levels]
-        outcomes_levels3 = []
-        for outcome in outcomes:
-            outcomes_levels3.append({'item': outcome, 'item_level': outcomes_levels2[outcomes.index(outcome)][0]})
-        """данные о перерквизитах"""
-        prerequisites = [item.name for item in workprogram.prerequisites.all()]
-        prerequisites_levels2 = [entry for entry in PrerequisitesOfWorkProgram.objects.values_list('masterylevel').filter(
-            workprogram=workprogram.pk)]
-        prerequisites_levels3 = []
-        for prerequisite in prerequisites:
-            prerequisites_levels3.append({'item': prerequisite, 'item_level': prerequisites_levels2[prerequisites.index(prerequisite)][0]})
-            workprograms_prerequisites.append({'title': workprogram.title, 'outcomes_levels': outcomes_levels3, })
-        print(workprograms_outcomes)
-        workprograms_outcomes.append({'pk': workprogram.pk, 'hoursFirstSemester': workprogram.hoursFirstSemester,
-                                      'hoursSecondSemester': workprogram.hoursSecondSemester, 'title': workprogram.title, 'outcomes_levels': outcomes_levels3,
-                                      'prerequisites_levels': prerequisites_levels3})
-
-        return render(request, 'workprograms/workprograms.html', {'workprograms': workprograms_outcomes})
-
-# class PrerequisitesOfWorkProgram(View):
+# class WorkPrograms(View):
+#
+#     def get(self, request, pk):
+#
+#         workprogram = WorkProgram.objects.prefetch_related('outcomes', 'prerequisites').filter(pk=pk)
+#         workprogram_outcomes = []
+#         workprogram_prerequisites = []
+#
+#         """данные о резальтатах"""
+#         outcomes = [item.name for item in workprogram.outcomes.get(pk=pk)]
+#         outcomes_levels = OutcomesOfWorkProgram.objects.values_list('masterylevel').filter(workprogram=workprogram.pk)
+#         outcomes_levels2 = [entry for entry in outcomes_levels]
+#         outcomes_levels3 = []
+#         for outcome in outcomes:
+#             outcomes_levels3.append({'item': outcome, 'item_level': outcomes_levels2[outcomes.index(outcome)][0]})
+#         """данные о перерквизитах"""
+#         prerequisites = [item.name for item in workprogram.prerequisites.all()]
+#         prerequisites_levels2 = [entry for entry in PrerequisitesOfWorkProgram.objects.values_list('masterylevel').filter(
+#             workprogram=workprogram.pk)]
+#         prerequisites_levels3 = []
+#         for prerequisite in prerequisites:
+#             prerequisites_levels3.append({'item': prerequisite, 'item_level': prerequisites_levels2[prerequisites.index(prerequisite)][0]})
+#             workprograms_prerequisites.append({'title': workprogram.title, 'outcomes_levels': outcomes_levels3, })
+#         print(workprograms_outcomes)
+#         workprograms_outcomes.append({'pk': workprogram.pk, 'hoursFirstSemester': workprogram.hoursFirstSemester,
+#                                       'hoursSecondSemester': workprogram.hoursSecondSemester, 'title': workprogram.title, 'outcomes_levels': outcomes_levels3,
+#                                       'prerequisites_levels': prerequisites_levels3})
+#
+#         return render(request, 'workprograms/workprograms.html', {'workprograms': workprograms_outcomes})
+#
+# # class PrerequisitesOfWorkProgram(View):
 #
 #     def get(self, request, pk):
 #         wp_obj = get_object_or_404(PrerequisitesOfWorkProgram, workprogram=pk)
