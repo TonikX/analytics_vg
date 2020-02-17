@@ -9,3 +9,11 @@ class WorkProgramOutcomesPrerequisites(forms.ModelForm):
         model = WorkProgram
         #fields = ('id', 'prerequisites', 'outcomes', 'title')
         fields = '__all__'
+
+
+class PrerequisitesOfWorkProgramForm(forms.ModelForm):
+
+    class Meta:
+        model = WorkProgram
+        #fields = ('id', 'prerequisites', 'outcomes', 'title')
+        fields = '__all__'
