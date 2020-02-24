@@ -84,6 +84,17 @@
           <span>Связи</span></a>
       </li>
 
+      {% if user.is_staff %}
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+      <!-- Nav Item - WorkProgramme -->
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'workprograms' %}">
+          <i class="fas fa-fw fa-university"></i>
+          <span>Рабочие программы</span></a>
+      </li>
+      {% endif %}
+
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
 

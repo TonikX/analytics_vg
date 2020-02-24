@@ -4,7 +4,9 @@ from django.views import View
 from .models import WorkProgram, OutcomesOfWorkProgram, PrerequisitesOfWorkProgram
 from .forms import WorkProgramOutcomesPrerequisites, PrerequisitesOfWorkProgramForm
 from django.contrib.auth.decorators import login_required
-
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from .serializers import WorkProgramSerializer
 
 from dataprocessing.models import Items
 import itertools
@@ -121,5 +123,12 @@ class WorkProgramsPostUpdate(View):
 #         return render(request, 'workprograms/WorkProgramOutcomesPrerequisitesEdit.html', {'form': WorkProgramOP})
 
 
-
+class WorkProgramsListApi(APIView):
+    """
+    Список рабочих программ для апи.
+    """
+    def get(self, request, format=None):
+        WorkPrograms = WorkProgram.objects.all()
+        serializer = WorkProgramSerializer(WorkPrograms, many=True)
+        return Response(serializer.data)
 

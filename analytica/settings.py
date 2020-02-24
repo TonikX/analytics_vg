@@ -25,7 +25,7 @@ SECRET_KEY = 'a-by(juyvwz1-ru0u(ds5%=^*7vc*_tvc9=h^e#6)6-mdek=8+'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['94.250.249.177']
+ALLOWED_HOSTS = ['94.250.249.177', '127.0.0.1']
 
 
 # Application definition
@@ -39,7 +39,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'dataprocessing',
     'crispy_forms',
-    'workprogramsapp'
+    'workprogramsapp',
+    # third party package for user registration and authentication endpoints
+    'djoser',
+    # rest API implementation library for django
+    'rest_framework',
+    # JWT authentication backend library
+    'rest_framework_simplejwt',
+    'rest_framework.authtoken',
+
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -129,3 +137,10 @@ STATIC_ROOT = '/Users/annaarzumanan/analytica/dataprocessing/static/'
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+}

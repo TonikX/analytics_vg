@@ -15,9 +15,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.conf.urls import url, include
+from django.urls import path
 
 urlpatterns = [
     url('admin/', admin.site.urls),
     url(r'^', include('dataprocessing.urls')),
     url(r'^', include('workprogramsapp.urls')),
+    # path to djoser end points
+    path('auth/', include('djoser.urls')),
+    path('auth/', include('djoser.urls.jwt')),
+    path('auth/', include('djoser.urls.authtoken')),
+    # path to our account's app endpoints
+    path("api/workprogramsapp/", include("workprogramsapp.urls"))
 ]
