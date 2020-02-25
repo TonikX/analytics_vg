@@ -16,8 +16,8 @@ class WorkProgram(models.Model):
 
 class PrerequisitesOfWorkProgram(models.Model):
 
-    class Meta:
-        auto_created = True
+    # class Meta:
+    #     auto_created = True
 
     item = models.ForeignKey(Items, on_delete=models.CASCADE)
     workprogram = models.ForeignKey(WorkProgram, on_delete=models.CASCADE)
@@ -34,8 +34,8 @@ class PrerequisitesOfWorkProgram(models.Model):
 
 
 class OutcomesOfWorkProgram(models.Model):
-    class Meta:
-        auto_created = True
+    # class Meta:
+    #     auto_created = True
 
 
     item = models.ForeignKey(Items, on_delete=models.CASCADE)

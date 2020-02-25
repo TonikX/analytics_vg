@@ -85,6 +85,9 @@ WSGI_APPLICATION = 'analytica.wsgi.application'
 FILE_UPLOAD_HANDLERS = ["django.core.files.uploadhandler.MemoryFileUploadHandler",
  "django.core.files.uploadhandler.TemporaryFileUploadHandler"]
 LOGIN_REDIRECT_URL = ('/')
+LOGIN_URL = '/web_login'
+LOGOUT_REDIRECT_URL = ('/web_login')
+
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
