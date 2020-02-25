@@ -4,7 +4,7 @@ from dataprocessing.models import Items
 
 class WorkProgram(models.Model):
     prerequisites = models.ManyToManyField(Items, related_name='WorkProgramPrerequisites',
-                                           through='PrerequisitesOfWorkProgram',)
+                                           through='PrerequisitesOfWorkProgram', blank=True, null=True)
     outcomes = models.ManyToManyField(Items, related_name='WorkProgramOutcomes', through='OutcomesOfWorkProgram',)
     title = models.CharField(max_length=1024)
     hoursFirstSemester = models.IntegerField(blank=True, null=True)
