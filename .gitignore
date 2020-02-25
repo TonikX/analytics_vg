@@ -13,3 +13,5 @@ vcs.xml
 wsl.distributions.xml
 _windows
 codestyles
+analytica/settings.py
+analytica/wsgi.py

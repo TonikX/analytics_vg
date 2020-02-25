@@ -9,6 +9,6 @@ urlpatterns = [
     #ToDo: сделать нормально.
     #re_path(r'^workprograms/(?P<pk>)/update/', WorkProgramsPostUpdate.as_view(), name='workprograms_update'),
     url(r'^workprograms/(?P<pk>\d+)/update/$', WorkProgramsPostUpdate.as_view(), name='workprograms_update'),
-    path('workprogramslistapi/', WorkProgramsListApi.as_view()),
+    path('api/wplist/', WorkProgramsListApi.as_view()),
 
 ]

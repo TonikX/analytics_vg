@@ -7,8 +7,8 @@ from django.contrib.auth.views import (
 urlpatterns = [
     url(r'^$', views.index, name = 'index'),
     url(r'^register/$', views.register, name='register'),
-    url(r'^login/$', login, {'template_name': 'accounts/login.html'}, name='login'),
-    url(r'^profile/edit/$', views.edit_profile, name='edit_profile'),
+    url(r'^weblogin/$', login, {'template_name': 'accounts/login.html'}, name='weblogin'),
+    url(r'^web_profile/edit/$', views.edit_profile, name='web_edit_profile'),
     url(r'^change-password/$', views.change_password, name='change_password'),
     url(r'^reset-password/$', password_reset, {'template_name': 'accounts/reset_password.html', 
                         'post_reset_redirect': 'accounts/password_reset_done.html', 
